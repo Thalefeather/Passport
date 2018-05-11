@@ -1,0 +1,89 @@
+// Use express-session, to make use o session on back-end and return an autentication cookie
+
+https://github.com/expressjs/session
+
+npm install express-session --save
+
+//on JS file
+var session = require('express-session')
+
+// You need also The Cookie Parser Package
+var cookieParser = require('cookie-parser')
+app.use(cookieParser());
+
+//beneath the static
+app.use(session({
+// advice: use a random string generator
+  secret: 'fdsfsdfsdamsdasldmasçd',
+  resave: false,
+
+  //setting it to true means that everytime that you visit the page, a session cookie is created
+  //set it to false...and use passport login to generate a cookie
+  saveUninitialized: false,
+  //cookie: { secure: true }
+}))
+
+//Creates a session in the back-end and returns a session id cookie 
+
+
+// Install passport autentication package to return a cookie whe a user is loged
+
+https://github.com/jaredhanson/passport
+
+npm install passport --save
+
+var passport = require('passport');
+
+//beneath the app.use(session)
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// now you can use... passport.login and passport.logout 
+
+
+//now we want to register and login the user
+// take the user that we created and logged in to our tab
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//LOGIN USER-create a session
+req.login(user_id,function(err){
+
+ res.redirect('/do');  
+ });
+
+//writing user data in the session
+passport.serializeUser(function(user_id, done) {
+  done(null, user_id);
+});
+
+//retrieving user datafrom the session
+passport.deserializeUser(function(user_id, done) {
+
+  done(null, user_id);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
